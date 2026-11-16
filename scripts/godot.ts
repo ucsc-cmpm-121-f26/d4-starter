@@ -142,7 +142,10 @@ async function extractRemoteEntry(url: string, name: string): Promise<Uint8Array
 async function linkForEditors() {
   const link = `${TOOLS}godot${Deno.build.os === "windows" ? ".exe" : ""}`;
   await Deno.remove(link).catch(() => {});
-  if (Deno.build.os === "windows") await Deno.link(godotPath(), link); // symlinks need admin
+  // On Windows, link the real Godot, not the _console.exe beside it: that one is a small
+  // wrapper that finds Godot by its own file name, so a renamed link to it cannot start.
+  const target = godotPath().replace("_console.exe", ".exe");
+  if (Deno.build.os === "windows") await Deno.link(target, link); // symlinks need admin
   else await Deno.symlink(godotPath(), link);
   await Deno.writeTextFile(`${TOOLS}_sc_`, "");
 }

@@ -39,6 +39,10 @@ for (const step of steps) {
   const result = await capture("deno", ["task", step]);
   const time = `${result.seconds.toFixed(1)}s`.padStart(7);
   row(step, result.ok ? `ok   ${time}` : `FAIL ${time}  ${lastError(result.text)}`);
+  if (!result.ok && /DLL load failed/.test(result.text)) {
+    // Blender's Python package needs the Microsoft Visual C++ runtime on Windows.
+    row("", "fix: winget install Microsoft.VCRedist.2015+.x64, then rerun");
+  }
   if (step === "setup") {
     const godot = await capture("deno", ["run", "-A", "scripts/godot.ts", "--", "--version"]);
     row("godot", godot.ok ? firstLine(godot.text) : "MISSING");
