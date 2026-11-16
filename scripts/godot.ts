@@ -175,7 +175,14 @@ async function setup() {
   // "_sc_" next to the binary means self-contained mode: editor settings and
   // export templates live in .tools/editor_data/, not your home directory.
   const binaryDir = godotPath().replace(/[^/\\]+$/, "");
-  await Deno.writeTextFile(`${binaryDir}_sc_`, "");
+  if (Deno.build.os === "darwin") {
+    // On macOS, Godot looks for _sc_ beside Godot.app (linkForEditors writes it), and a
+    // file inside the signed bundle would break Apple's signature seal, so remove any
+    // copy an older setup left there.
+    await Deno.remove(`${binaryDir}_sc_`).catch(() => {});
+  } else {
+    await Deno.writeTextFile(`${binaryDir}_sc_`, "");
+  }
   await linkForEditors();
   const templates = `${TOOLS}editor_data/export_templates/${VERSION}.stable/`;
   const template = "web_nothreads_release.zip";

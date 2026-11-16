@@ -74,6 +74,24 @@ Godot exits with code 0 even when a script fails to parse, so a plain
 Godot's output for script errors and fails instead, and the test runner treats
 an unloadable test file or zero tests run as failure.
 
+## First time on a new computer
+
+You probably have git and Deno from earlier assignments; uv is new.
+
+- **Mac:** run `xcode-select --install` first if `git --version` offers to install Apple's
+  Command Line Tools (about 2 GB, about 5 minutes; if no window appears, click the
+  installer icon in the Dock). Install [uv](https://docs.astral.sh/uv/getting-started/installation/),
+  then **open a new Terminal window** so the shell finds it.
+- **Windows (PowerShell):** `winget install Git.Git Microsoft.VCRedist.2015+.x64` (Blender's
+  Python package needs the Visual C++ runtime), install [uv](https://docs.astral.sh/uv/getting-started/installation/),
+  then **open a new terminal**: git and uv are not found in the one that installed them.
+- **Linux:** see the table and packages below.
+
+Check `git --version`, `deno --version`, and `uv --version`, then in your clone run
+`deno task setup` and `deno task doctor`. The first `deno task dev` can sit on Godot's splash
+screen for up to a minute while it prepares shaders. If macOS asks whether Terminal may
+use the microphone, choose Don't Allow: the game does not need it.
+
 ## Requirements
 
 Deno and uv.
