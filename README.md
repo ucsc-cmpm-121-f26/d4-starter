@@ -76,8 +76,11 @@ an unloadable test file or zero tests run as failure.
 
 ## Requirements
 
-Deno and uv. The first `deno task art` downloads Blender's `bpy` package
-(a few hundred MB; minutes on slow networks), so run it once before you need it.
+Deno and uv.
+
+**Downloads: about half a gigabyte, once per computer** (Godot 80 to 170 MB, Blender's `bpy`
+package 250 to 400 MB; about 1.5 GB on disk). Use Wi-Fi such as eduroam or ResWiFi, not a phone
+hotspot, for the first `deno task setup` and `deno task art`.
 Set `GODOT=/path/to/godot` to use your own Godot 4.7.2 instead of `.tools/`.
 
 | Platform | Godot tasks | `deno task art` |
