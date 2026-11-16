@@ -4,11 +4,9 @@
 # Until you set it up or opt out, every push gets a reminder comment and a red X.
 #
 # SET UP
-#   1. On https://api.bayleaf.dev/dashboard, under "App tokens", open "Create a token".
-#      Keep only the inference.chat scope. Under models, plain-click
-#      openrouter:z-ai/glm-5.3-flash: a plain click replaces the preselected model, while
-#      Cmd/Ctrl-click would add to it. Set Lifetime to 2592000 seconds (30 days; the
-#      default is only one hour).
+#   1. Open this link (sign in if asked), check the form, and create the token. It
+#      asks for exactly what the bot needs: chat with one model, for 30 days.
+#      https://api.bayleaf.dev/grants/new?label=CMPM%20121%20D4%20reviewbot&scopes=inference.chat&models=openrouter:z-ai/glm-5.3-flash&expires_in=2592000
 #   2. In this repository, go to Settings > Secrets and variables > Actions, and save
 #      the token as a secret named REVIEW_BOT_TOKEN. Repeat these steps when it expires.
 #
@@ -71,7 +69,7 @@ jobs:
 
           This comment and a red X come back on every push until you do one of two things:
 
-          - **Set up:** follow the steps at the top of [the workflow]($repo/blob/main/.github/workflows/review-bot.yml), then push any commit. They end at [this repository's secrets page]($repo/settings/secrets/actions).
+          - **Set up:** [create a review bot token](https://api.bayleaf.dev/grants/new?label=CMPM%20121%20D4%20reviewbot&scopes=inference.chat&models=openrouter:z-ai/glm-5.3-flash&expires_in=2592000), save it as the REVIEW_BOT_TOKEN secret on [this repository's secrets page]($repo/settings/secrets/actions), then push any commit. The same steps are at the top of [the workflow]($repo/blob/main/.github/workflows/review-bot.yml).
           - **Opt out:** [edit the workflow]($repo/edit/main/.github/workflows/review-bot.yml) and change "if: true" to "if: false", or delete that file.
           EOF
         env:
