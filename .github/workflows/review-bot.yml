@@ -4,9 +4,11 @@
 # Until you set it up or opt out, every push gets a reminder comment and a red X.
 #
 # SET UP
-#   1. On https://api.bayleaf.dev/dashboard, under "Temporary inference tokens", create
-#      a token for openrouter:z-ai/glm-5.3-flash. Set its lifetime to 2592000 seconds
-#      (30 days; the default is only one hour).
+#   1. On https://api.bayleaf.dev/dashboard, under "App tokens", open "Create a token".
+#      Keep only the inference.chat scope. Under models, plain-click
+#      openrouter:z-ai/glm-5.3-flash: a plain click replaces the preselected model, while
+#      Cmd/Ctrl-click would add to it. Set Lifetime to 2592000 seconds (30 days; the
+#      default is only one hour).
 #   2. In this repository, go to Settings > Secrets and variables > Actions, and save
 #      the token as a secret named REVIEW_BOT_TOKEN. Repeat these steps when it expires.
 #

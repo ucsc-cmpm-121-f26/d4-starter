@@ -16,8 +16,10 @@ in `core/session.gd`.
 | Check before commit | `deno task ci` | Format check, lint, import, tests, web export into `dist/` |
 | See the web build | `deno task preview` | Serves `dist/` locally |
 
-Push to `main` and `.github/workflows/deploy.yml` runs the same `deno task ci`
-on GitHub and deploys `dist/` to Pages. The optional review bot
+Once, before your first push: in your repository's **Settings > Pages**, set **Source** to
+**GitHub Actions** (a repository made from a template does not inherit this). Then every
+push to `main` runs `.github/workflows/deploy.yml`: the same `deno task ci` on GitHub, and a
+deploy of `dist/` to Pages. The optional review bot
 (`.github/workflows/review-bot.yml`, guided by `REVIEWBOT.md`) comments on each push
 once you set it up; until then it shows a red X that says nothing about your code.
 

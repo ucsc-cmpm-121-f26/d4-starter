@@ -26,13 +26,16 @@ Each push, choose what is most worth saying, and let the rest wait.
 
 A review has this shape and nothing else:
 
-1. At most three new findings in prose, one short paragraph each, most interesting
+1. At most three new findings in prose, one short paragraph each (under 100 words:
+   name what you read, why it matters, and one question or next step), most interesting
    first, with no heading above them and no opener like "Step N is complete". A smell,
    a merge, a sketch, a question, or a creative nudge each uses one of the three.
 2. A table with rows only for findings new or changed by this push, with a short note
    per row. Things that work and nudges get no row. IDs are never reused.
 3. One line for unchanged open findings, IDs only: "Open, unchanged: F2, F4".
-4. A line for any saved files.
+4. If you saved files, one line naming them; otherwise leave this line out.
+
+Write without em dashes: use colons, commas, or parentheses instead.
 
 Do not spend words on what is unremarkable: mention `REVIEWBOT.md`, `AGENTS.md`, or
 the workflow only if this push changed them, and mention `deno task ci` or
