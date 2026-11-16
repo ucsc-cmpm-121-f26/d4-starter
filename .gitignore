@@ -1,0 +1,8 @@
+.tools/
+.godot/
+dist/
+playtests/scratch/
+# glTF Tools "Import from GLB" output, for inspecting the kit; rebuild with deno task art
+art/*.gltf
+art/*.bin
+.DS_Store
