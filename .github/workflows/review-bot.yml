@@ -180,7 +180,7 @@ jobs:
             - If you save files, list the interesting ones in a line or two, saying what each shows.
               Don't list review.md.
             - Never mention grades, points, or deadlines.
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         id: upload
         with:
           name: review
@@ -197,7 +197,7 @@ jobs:
     permissions:
       contents: write
     steps:
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: review
       - name: Comment on the commit
