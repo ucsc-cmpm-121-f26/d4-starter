@@ -25,7 +25,7 @@ jobs:
         with:
           deno-version: v2.9.7
       - name: Setup uv (for gdtoolkit lint and format)
-        uses: astral-sh/setup-uv@v10
+        uses: astral-sh/setup-uv@v10.3.3 # it publishes no floating major tag
         with:
           enable-cache: false # nothing to key it on: uvx only fetches the small GDScript linter
       - name: Cache Godot in .tools/
