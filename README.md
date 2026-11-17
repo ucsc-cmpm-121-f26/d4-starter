@@ -7,12 +7,13 @@ in `core/session.gd`.
 | You want to | Run | What happens |
 | --- | --- | --- |
 | Get the tools | `deno task setup` | Downloads pinned Godot 4.7.2 and only its web export template into `.tools/` |
-| Make the art | `deno task art` | Runs `tools/build_art.py` with Blender as a Python library (`bpy`), writes `art/*.glb` |
+| Make the art | `deno task art` | Runs `tools/build_art.py` with Blender as a Python library (`bpy`), writes `art/dragon_kit.glb` and `art/dragon_kit.blend` |
 | Make the art on an Intel Mac | `deno task art:lts` | Same script, Blender 4.5 LTS |
 | Check this computer | `deno task doctor` | Tries every step and prints a report to paste into Canvas |
 | See the kit in the game's lighting | `deno task kit` | Every piece in a row, plus a sample dragon bending through turns |
 | Play it | `deno task dev` | Runs the game in a native window |
 | Open the editor | `deno task edit` | The graphical editor is still there when you want it |
+| Look at the kit in Blender | `deno task blender` | Opens `art/dragon_kit.blend` in the Blender app, if installed (optional) |
 | Check before commit | `deno task ci` | Format check, lint, import, tests, web export into `dist/` |
 | See the web build | `deno task preview` | Serves `dist/` locally |
 
@@ -38,6 +39,26 @@ Open this folder in VS Code and accept the recommended extensions
   game uses only each piece's mesh, so the layout never affects play.
 - **Deno:** for the TypeScript in `scripts/`.
 
+### Blender's own window (optional)
+
+`deno task art` needs no Blender app, but each run also saves `art/dragon_kit.blend` so
+you can orbit, inspect, and try ideas in Blender itself: `deno task blender` opens it.
+Install [Blender 5.2](https://www.blender.org/download/) (4.5 LTS on an Intel Mac), or
+set `BLENDER=/path/to/blender`. The script looks in `/Applications` on a Mac, in
+`Program Files\Blender Foundation` on Windows, and for `blender` on your PATH. If Blender
+warns the file was written by a newer version, update to the newest 5.2.
+
+The game reads only the `.glb`, and **`deno task art` overwrites both files**, so hand
+edits to `art/dragon_kit.blend` vanish on the next run (that file is gitignored for the
+same reason). To edit by hand, first **File > Save As** a copy such as
+`art/my_kit.blend` (commit it if you like; `deno task blender art/my_kit.blend` reopens it),
+then **File > Export > glTF 2.0** with: Format glTF Binary, file `art/dragon_kit.glb`,
+no Limit to boxes ticked, Cameras and Punctual Lights unticked, +Y Up and Apply Modifiers
+ticked. Keep the object names. The tradeoff: from then on the kit lives in that file, not
+in the code, so later changes to `build_art.py` stop reaching it and reviewers cannot read
+your edits in a diff. Do not run `deno task art` afterwards unless you mean to go back
+to the code's kit. The docstring at the top of `build_art.py` repeats these steps.
+
 `Cmd/Ctrl+Shift+B` runs `deno task ci`.
 
 ## Layout
@@ -56,9 +77,11 @@ Open this folder in VS Code and accept the recommended extensions
   shared meshes, and follows it with the camera.
 - `app/stage.gd`: sky, sun, glow, fog, and one instanced mesh per tile kind.
 - `tools/build_art.py`: Blender as code. The dragon kit is drawn as ASCII voxel layers; edit, run
-  `deno task art`, replay.
+  `deno task art`, replay. Its output: `art/dragon_kit.glb` (committed; the game loads it) and
+  `art/dragon_kit.blend` (gitignored; for looking around in Blender).
 - `tests/`: `*_test.gd` files, run by `tests/run_tests.gd` (a tiny runner, no plugin).
 - `scripts/godot.ts`: finds Godot, and fails the task when Godot prints script errors.
+- `scripts/blender.ts`: finds the Blender app and opens a `.blend` in it.
 
 ## Where this can go
 

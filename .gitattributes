@@ -4,6 +4,7 @@
 
 # Binary assets: never convert or diff as text.
 *.glb binary
+*.blend binary
 *.png binary
 *.wav binary
 *.ogg binary

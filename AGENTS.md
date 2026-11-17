@@ -22,7 +22,10 @@ version-matched official docs (Godot 4.7, Blender 5.2 Python API); link them.
 - `app/`: the engine adapter. `main.gd` keeps the clock, ticks the session, and draws the dragon;
   `stage.gd` builds sky, light, and tiles. It reads core state; it never decides rules.
 - `tools/build_art.py`: all 3D art, as code. `art/dragon_kit.glb` is its output:
-  regenerate it with `deno task art`, never edit it by hand.
+  regenerate it with `deno task art`, never edit it by hand. It also saves
+  `art/dragon_kit.blend` (gitignored, rewritten every run) for `deno task blender`,
+  which opens it in an installed Blender app (`scripts/blender.ts`). Godot's own
+  `.blend` import is off in `project.godot`; the game reads only the `.glb`.
 - `tests/`: `*_test.gd`, run by `tests/run_tests.gd`.
 
 ### Conventions that are easy to break

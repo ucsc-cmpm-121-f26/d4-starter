@@ -6,6 +6,11 @@ config/name="D4 Dev"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
+[filesystem]
+; The game loads art/dragon_kit.glb. Without this, Godot also tries to import
+; art/*.blend, which needs the Blender app and would duplicate the kit.
+import/blender/enabled=false
+
 [rendering]
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"

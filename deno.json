@@ -5,6 +5,7 @@
     "art": "uv run --script tools/build_art.py",
     "art:lts": "uv run --no-project --python 3.11 --with \"bpy==4.5.*\" python tools/build_art.py",
     "edit": "deno run -A scripts/godot.ts -- --editor --path .",
+    "blender": "deno run -A scripts/blender.ts",
     "dev": "deno run -A scripts/godot.ts -- --path .",
     "kit": "deno run -A scripts/godot.ts -- --path . res://app/kit_viewer.tscn",
     "import": "deno run -A scripts/godot.ts -- --headless --path . --import",
