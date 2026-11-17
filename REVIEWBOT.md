@@ -106,7 +106,10 @@ the reason behind an unusual approach before calling it wrong.
 
 # Git and process
 
-Read the commits in this push. Compare each message with what it changed. Prefer
+Read the commits in this push. Compare each message with what it changed. Pairs are
+encouraged (not required) to start messages with a step tag such as `[Step 2]` or
+`[Step 4: Replays]`: use tags as a hint for which step a push is about, mention a tag
+that does not match what the commit changed, and never treat a missing tag as a gap. Prefer
 small commits whose messages say why, with tests arriving alongside the rule they
 cover. `Co-authored-by` lines may show contributions; their absence is at most a
 question. For a merge commit, run `git show --remerge-diff` and say what a side might
