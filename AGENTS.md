@@ -27,6 +27,9 @@ version-matched official docs (Godot 4.7, Blender 5.2 Python API); link them.
   which opens it in an installed Blender app (`scripts/blender.ts`). Godot's own
   `.blend` import is off in `project.godot`; the game reads only the `.glb`.
 - `tests/`: `*_test.gd`, run by `tests/run_tests.gd`.
+- `scripts/check-boundary.ts` (`deno task boundary`, first in `ci`): fails if a `core/`
+  script extends a node or names the scene tree, input, or the screen. Text-based and
+  deliberately simple; it does not catch rules drifting into `app/`.
 
 ### Conventions that are easy to break
 

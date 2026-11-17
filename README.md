@@ -14,7 +14,8 @@ in `core/session.gd`.
 | Play it | `deno task dev` | Runs the game in a native window |
 | Open the editor | `deno task edit` | The graphical editor is still there when you want it |
 | Look at the kit in Blender | `deno task blender` | Opens `art/dragon_kit.blend` in the Blender app, if installed (optional) |
-| Check before commit | `deno task ci` | Format check, lint, import, tests, web export into `dist/` |
+| Check before commit | `deno task ci` | Boundary check, format check, lint, import, tests, web export into `dist/` |
+| Check that `core/` stays engine-free | `deno task boundary` | Fails if a `core/` script extends a node or uses input, the scene tree, or the screen |
 | See the web build | `deno task preview` | Serves `dist/` locally |
 
 Once, before your first push: in your repository's **Settings > Pages**, set **Source** to
@@ -81,6 +82,7 @@ to the code's kit. The docstring at the top of `build_art.py` repeats these step
   `art/dragon_kit.blend` (gitignored; for looking around in Blender).
 - `tests/`: `*_test.gd` files, run by `tests/run_tests.gd` (a tiny runner, no plugin).
 - `scripts/godot.ts`: finds Godot, and fails the task when Godot prints script errors.
+- `scripts/check-boundary.ts`: the `core/` boundary gate (`deno task boundary`, part of `ci`).
 - `scripts/blender.ts`: finds the Blender app and opens a `.blend` in it.
 
 ## Where this can go
@@ -96,6 +98,19 @@ Godot exits with code 0 even when a script fails to parse, so a plain
 `godot --headless ...` would let a broken commit pass CI. The wrapper watches
 Godot's output for script errors and fails instead, and the test runner treats
 an unloadable test file or zero tests run as failure.
+
+## Why `core/` has a boundary check
+
+Same gate as D3's `deno task boundary`, for GDScript. Every script in `core/` must
+extend `RefCounted` (or `Object`, `Resource`, or another `core/` class) and must not
+name nodes, the scene tree, input, or the screen (`Node`, `Node3D`, `get_tree`,
+`Input`, `DisplayServer`, a `$Path`, and a few more; the list is at the top of
+`scripts/check-boundary.ts`). Comments and strings are ignored, and reading files
+with `FileAccess` is allowed, since levels and replays are data. The check reads text,
+so it is simple rather than complete: it keeps the obvious leaks out, and review keeps
+the subtle ones (rules drifting into `app/`) out. To see it work, add `extends Node3D`
+to a file in `core/`, run `deno task boundary`, read what it says, and undo it. The
+list is yours to tighten.
 
 ## First time on a new computer
 

@@ -13,9 +13,10 @@
     "lint": "uvx --from gdtoolkit==4.5.0 gdlint core app tests",
     "fmt": "uvx --from gdtoolkit==4.5.0 gdformat core app tests",
     "fmt:check": "uvx --from gdtoolkit==4.5.0 gdformat --check core app tests",
+    "boundary": "deno run --allow-read=core scripts/check-boundary.ts",
     "build": "deno run -A scripts/build.ts",
     "preview": "deno run -A jsr:@std/http@1/file-server dist",
-    "ci": "deno check scripts && deno task fmt:check && deno task lint && deno task import && deno task test && deno task build",
+    "ci": "deno check scripts && deno task boundary && deno task fmt:check && deno task lint && deno task import && deno task test && deno task build",
     "doctor": "deno run -A scripts/doctor.ts"
   }
 }
