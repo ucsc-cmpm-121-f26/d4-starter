@@ -42,4 +42,26 @@ _The steps a teammate would follow, naming your actual files._
 
 ## Patterns, and what they bought us
 
-_Each pattern you used on purpose, where it is, and what it made easier (or harder)._
+_Each pattern you used on purpose, where it is, and what it made easier (or harder).
+Where a SOLID principle explains why it helped (for example, open/closed: a new tile
+kind or powerup is added, not edited in), say which one._
+
+## One idea we carried over
+
+_Pick one idea you used earlier this quarter in TypeScript (for example a Command queue,
+a core kept apart from the framework, data-driven content, or a boundary gate) and
+describe its transfer at three levels:_
+
+- _**The problem:** what goes wrong without it, in any engine or language._
+- _**The practice:** what we do about it, the same here as in our TypeScript Demos._
+- _**The mechanism:** how Godot, GDScript, or Blender does it, and what changed from
+  TypeScript (what got easier, what got harder, what we had to give up)._
+
+## Sources we relied on
+
+Claims about how Godot or Blender behaves, checked against the documentation for the
+versions we run (Godot 4.7, Blender 5.2). Add a row when a decision depends on one.
+
+| Claim | Source (link) | How we checked it |
+| --- | --- | --- |
+| _what the tool does_ | _manual page or source file_ | _what we ran or looked at_ |

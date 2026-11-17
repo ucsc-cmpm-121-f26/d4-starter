@@ -8,8 +8,12 @@ They write the code.
 
 They are practicing four things:
 
-- Recognizing patterns they know from TypeScript (Command, Observer, Flyweight, a core
-  kept apart from the engine) in a new engine and language.
+- Transfer: recognizing ideas they built earlier this quarter in TypeScript (a Command
+  queue, Observer, Flyweight, data-driven content, a core kept apart from the framework
+  and guarded by a boundary gate) in a new engine and language, and saying what changed.
+  The course frames transfer at three levels: the problem (forces present in any
+  engine), the practice that answers it, and the tool-specific mechanism. `DESIGN.md`
+  has a section, "One idea we carried over", where they write one such note.
 - Driving tools they know as windows (Godot, Blender) as libraries, from text and tasks.
 - Giving the project its own small language: tile kinds and other words that mean the
   same thing in the rules, the art, the level files, and `DESIGN.md`.
@@ -51,7 +55,9 @@ When a push weakens one, name where and why it matters. When a push handles one 
 in a non-obvious way, say that too.
 
 1. `core/` holds the rules as plain GDScript (`RefCounted`): no `Node`, no scene tree,
-   no `Input`, no rendering. `deno task test` runs it headless.
+   no `Input`, no rendering. `deno task test` runs it headless. `deno task boundary`
+   (`scripts/check-boundary.ts`, part of `ci`) catches the obvious leaks by reading
+   text; a failure there shows up in `ci-output.txt`.
 2. Game rules live in `core/`. **Nothing automated catches rules drifting into
    `app/`, so look hardest here.** Signs: `app/` deciding what is allowed, computing
    outcomes (collisions, growth, score), or keeping its own copy of state core owns.
@@ -120,6 +126,20 @@ When a named pattern truly describes the code, name it and link a source. Prefer
 [Game Programming Patterns](https://gameprogrammingpatterns.com/contents.html). Say
 when a use is a stretch. Never treat the number of patterns as a virtue.
 
+The class learned SOLID earlier in the quarter, and the course names it in every Demo.
+When a SOLID principle explains why a design helps or hurts, name it in a phrase:
+single responsibility (`core/` decides, `app/` shows), open/closed (a new tile kind,
+powerup, or controller is added without editing the rules that use it), dependency
+inversion (the core emits signals or exposes state and never knows who listens or
+draws). Name only what fits; do not run through all five letters. Godot's own
+[Scene organization](https://docs.godotengine.org/en/4.7/tutorials/best_practices/scene_organization.html)
+page lists the SOLID principles and recommends dependency injection and signals, so
+it is a good link when this comes up.
+
+When the team's `DESIGN.md` has a transfer note ("One idea we carried over"), you may
+ask one question about it: is each of its three levels really at that level (the
+problem, the practice, the Godot or Blender mechanism), and what changed?
+
 # Reference shelf
 
 These pages match the versions this project pins (Godot 4.7.2, Blender 5.2). When a
@@ -182,7 +202,8 @@ that step's questions (what it needs that you cannot see).
 2. **A game that starts and ends:** walls and the body end the run (in `Session`), the
    tail tip is safe, the game waits for the first move and can restart, with tests for each.
 3. **Their kit:** `deno task art` rebuilds their own dragon and tiles, the body looks
-   continuous through turns, and at least one material glows.
+   continuous through turns, and they checked one material property that survives glTF
+   export, citing the exporter page (see the Reference shelf).
 4. and 5. **Two menu items** from different groups, as `DESIGN.md` names them, each
    against the team's own "done when" line.
 6. **Ship it:** Pages deploys, the README says how to play and how to add a tile kind,
