@@ -68,6 +68,11 @@ to the code's kit. The docstring at the top of `build_art.py` repeats these step
   partner and the optional review bot read it to learn where you are headed.
 
 - `project.godot`, `main.tscn`, `export_presets.cfg`: Godot's own config, plain text, editable by hand.
+  `project.godot` is Godot's project settings file (INI-like: `[section]` and `key=value`). It
+  is kept in the exact layout Godot's editor writes, so opening the editor changes nothing;
+  the editor drops comments and any setting equal to Godot's default, so explanations live
+  here instead. `import/blender/enabled=false` stops Godot from importing `art/*.blend`
+  (the game loads only `art/dragon_kit.glb`, and that import would need the Blender app).
 - `core/session.gd`: one run at the game. It owns the board and the dragon and ticks them; rules that
   involve more than the dragon (food, score, collisions) go here. No Nodes; tested headless.
 - `core/dragon.gd`: the dragon's movement on the grid (heading, a turn queue). No Nodes; tested headless.

@@ -1,18 +1,25 @@
-; Godot reads this file; you can edit it by hand like deno.json.
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
 config_version=5
 
 [application]
+
 config/name="D4 Dev"
 run/main_scene="res://main.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 
 [filesystem]
-; The game loads art/dragon_kit.glb. Without this, Godot also tries to import
-; art/*.blend, which needs the Blender app and would duplicate the kit.
+
 import/blender/enabled=false
 
 [rendering]
+
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 anti_aliasing/quality/msaa_3d=2
-lights_and_shadows/directional_shadow/size=4096
